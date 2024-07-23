@@ -28,6 +28,10 @@
     margin-top: 10px;
 }
 
+* {
+    border: none;
+}
+
 .signup-button {
     background-color: #28a745;
 }

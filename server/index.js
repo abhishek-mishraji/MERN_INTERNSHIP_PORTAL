@@ -1,4 +1,3 @@
-
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -6,7 +5,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const router = require("./routes/userr");
 const cookieParser = require("cookie-parser");
-
+const path = require("path");
+const dotenv = require("dotenv");
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors({
@@ -30,7 +30,10 @@ const Connection = async (username, password) => {
 Connection('user', 'codeforinterview').then(() => {
     // Setup routes
     app.use("/auth", router);
-
+    app.use(express.static('build'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '/build', 'index.html'))
+    });
     // Start the server
     app.listen(3000, () => {
         console.log("Server is running on port 3000");
